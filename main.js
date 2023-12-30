@@ -22,38 +22,62 @@ class Notice {
     addNewTask() {
         // this.notice.style.top = `${Notice.counter}px`;
         this.notice.style.left = `${Notice.counter}px`;
-  
+
     }
 
     addEventListeners() {
         this.notice.addEventListener('mousedown', (evt) => {
-    this.isFocused = true;
-    const { top, left } = evt.target.getBoundingClientRect();
-    console.log(evt)
-    this.noticeCoords = {
-        x: evt.clientX - left,
-        y: evt.clientY - top,
-    }
-        }) 
-        
+            this.isFocused = true;
+            const { top, left } = evt.target.getBoundingClientRect();
+            console.log(evt)
+            this.noticeCoords = {
+                x: evt.clientX - left,
+                y: evt.clientY - top,
+            }
+        })
+
+        this.notice.addEventListener('touchstart', (evt) => {
+            this.isFocused = true;
+            const { top, left } = evt.target.getBoundingClientRect();
+            console.log(evt)
+            this.noticeCoords = {
+                x: evt.clientX - left,
+                y: evt.clientY - top,
+            }
+        })
+
         document.addEventListener('mouseup', (evt) => {
-    this.isFocused = false;
-})
+            this.isFocused = false;
+        })
+
+        document.addEventListener('touchend', (evt) => {
+            this.isFocused = false;
+        })
 
         document.addEventListener('mousemove', (evt) => {
-    if (this.isFocused) {
-        const { x, y } = this.noticeCoords;
-        this.notice.style.top = `${evt.clientY - y}px`
-        this.notice.style.left = `${evt.clientX - x}px`
+            if (this.isFocused) {
+                const { x, y } = this.noticeCoords;
+                this.notice.style.top = `${evt.clientY - y}px`
+                this.notice.style.left = `${evt.clientX - x}px`
+            }
+        })
+
+        document.addEventListener('touchmove', (evt) => {
+            if (this.isFocused) {
+                const { x, y } = this.noticeCoords;
+                this.notice.style.top = `${evt.clientY - y}px`
+                this.notice.style.left = `${evt.clientX - x}px`
+            }
+        })
     }
-})
-    }
+
+
 
     count() {
         Notice.counter += 200;
         console.log(Notice.counter)
     }
-   
+
 }
 
 addNoticeBtn.addEventListener('click', addNotice);
@@ -67,5 +91,3 @@ function addNotice() {
     id += 1;
     mainContainer.appendChild(notice.notice);
 }
-
-
