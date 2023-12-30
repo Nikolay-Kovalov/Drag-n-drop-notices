@@ -37,6 +37,7 @@ class Notice {
         })
 
         this.notice.addEventListener('touchstart', (evt) => {
+            alert('Hello')
             this.isFocused = true;
             const { top, left } = evt.target.getBoundingClientRect();
             console.log(evt)
