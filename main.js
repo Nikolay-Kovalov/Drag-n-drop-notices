@@ -29,45 +29,60 @@ class Notice {
         this.notice.addEventListener('mousedown', (evt) => {
             this.isFocused = true;
             const { top, left } = evt.target.getBoundingClientRect();
-            console.log(evt)
+
             this.noticeCoords = {
                 x: evt.clientX - left,
                 y: evt.clientY - top,
             }
+
         })
 
         this.notice.addEventListener('touchstart', (evt) => {
-            alert('Hello')
+
             this.isFocused = true;
+            console.log(this.isFocused)
             const { top, left } = evt.target.getBoundingClientRect();
-            console.log(evt)
+            console.log(top)
+            console.log(left)
+            console.log(evt.changedTouches[0].clientX)
+
             this.noticeCoords = {
-                x: evt.clientX - left,
-                y: evt.clientY - top,
+                x: evt.changedTouches[0].clientX - left,
+                y: evt.changedTouches[0].clientY - top,
             }
+            console.log(this.noticeCoords)
         })
 
         document.addEventListener('mouseup', (evt) => {
             this.isFocused = false;
+
         })
 
         document.addEventListener('touchend', (evt) => {
             this.isFocused = false;
+            console.log(this.isFocused)
         })
 
         document.addEventListener('mousemove', (evt) => {
             if (this.isFocused) {
+
                 const { x, y } = this.noticeCoords;
+                console.log(this.noticeCoords)
+                console.log(x)
+                console.log(y)
                 this.notice.style.top = `${evt.clientY - y}px`
                 this.notice.style.left = `${evt.clientX - x}px`
+
             }
         })
 
         document.addEventListener('touchmove', (evt) => {
             if (this.isFocused) {
                 const { x, y } = this.noticeCoords;
-                this.notice.style.top = `${evt.clientY - y}px`
-                this.notice.style.left = `${evt.clientX - x}px`
+                // console.log(x)
+                // console.log(y)
+                this.notice.style.top = `${evt.changedTouches[0].clientY  - y}px`
+                this.notice.style.left = `${evt.changedTouches[0].clientX  - x}px`
             }
         })
     }
